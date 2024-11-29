@@ -1,11 +1,26 @@
 # backend/celery_app.py
-
+import os
 from celery import Celery
 
+REDIS_CONNECTION_STRING = os.getenv('REDIS_URL')
+components = REDIS_CONNECTION_STRING.split(',')
+host_port = components[0]  
+password = components[1].split('=')[1]  
+
+# Check if SSL is enabled
+ssl_enabled = 'ssl=True' in REDIS_CONNECTION_STRING
+
+# Construct the broker URL
+if ssl_enabled:
+    broker_url = f'rediss://:{password}@{host_port}/0'
+else:
+    broker_url = f'redis://:{password}@{host_port}/0'
+
+# Initialize Celery
 celery_app = Celery(
     'ai_automation_tool',
-    broker='redis://localhost:6379/0',
-    backend='redis://localhost:6379/0',
+    broker=broker_url,
+    backend=broker_url,
     include=['tasks']
 )
 
