@@ -9,4 +9,4 @@ pydantic==2.5.2
 sqlalchemy==2.0.23
 psycopg2-binary==2.9.9
 alembic==1.12.1
-supervisor
+supervisor==4.2.4
