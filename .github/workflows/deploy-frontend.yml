@@ -17,13 +17,13 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'  # Specify Node.js version compatible with your project
+          node-version: '16'  
 
       - name: Install Dependencies
         run: npm install
 
       - name: Set Environment Variables
-        run: echo "REACT_APP_API_BASE_URL=https://ai-automation-celery.azurewebsites.net" >> $GITHUB_ENV
+        run: echo 'REACT_APP_API_BASE_URL=https://ai-automation-celery-bbg0crghfff9e0e7.centralindia-01.azurewebsites.net' >> $GITHUB_ENV
 
       - name: Build Frontend
         run: npm run build
@@ -33,6 +33,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-          # Optionally specify the branch and folder if different from default
-          # branch: gh-pages
-          # folder: build
+          
