@@ -1,6 +1,6 @@
 // frontend/src/components/DisplayTextBlock.jsx
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Handle } from 'reactflow';
 
 function DisplayTextBlock({ data, isConnectable }) {

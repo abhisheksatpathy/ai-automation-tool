@@ -13,7 +13,7 @@ import 'reactflow/dist/style.css';
 import './styles/App.css';
 import './styles/blocks.css';
 import './styles/toolbar.css';
-import { executeWorkflow, getTaskStatus } from './services/api';
+import { executeWorkflow } from './services/api';
 import { WorkflowProvider } from './context/WorkflowContext';
 import { wsService } from './services/websocket';
 import WorkflowToolbar from './components/WorkflowToolbar';
