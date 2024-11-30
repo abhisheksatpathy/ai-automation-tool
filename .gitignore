@@ -1,3 +1,0 @@
-# Root level exclusions
-.env
-*.log
