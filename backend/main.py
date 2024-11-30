@@ -1,4 +1,6 @@
 # backend/main.py
+import openai
+print(f"Web Server - OpenAI version: {openai.__version__}")
 
 from fastapi import FastAPI, WebSocket, HTTPException, Depends, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
