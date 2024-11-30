@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/ai-automation-tool/static/css/main.64f075dd.css",
-    "main.js": "/ai-automation-tool/static/js/main.8af7a4eb.js",
+    "main.js": "/ai-automation-tool/static/js/main.fed5ef7c.js",
     "index.html": "/ai-automation-tool/index.html",
     "main.64f075dd.css.map": "/ai-automation-tool/static/css/main.64f075dd.css.map",
-    "main.8af7a4eb.js.map": "/ai-automation-tool/static/js/main.8af7a4eb.js.map"
+    "main.fed5ef7c.js.map": "/ai-automation-tool/static/js/main.fed5ef7c.js.map"
   },
   "entrypoints": [
     "static/css/main.64f075dd.css",
-    "static/js/main.8af7a4eb.js"
+    "static/js/main.fed5ef7c.js"
   ]
 }
