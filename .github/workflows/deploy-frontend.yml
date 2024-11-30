@@ -1,0 +1,38 @@
+name: Deploy Frontend to GitHub Pages
+
+on:
+  push:
+    branches:
+      - main  # Trigger on pushes to main branch
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'  # Specify Node.js version compatible with your project
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Set Environment Variables
+        run: echo "REACT_APP_API_BASE_URL=https://ai-automation-celery.azurewebsites.net" >> $GITHUB_ENV
+
+      - name: Build Frontend
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+          # Optionally specify the branch and folder if different from default
+          # branch: gh-pages
+          # folder: build
