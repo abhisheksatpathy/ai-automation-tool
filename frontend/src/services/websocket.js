@@ -1,3 +1,5 @@
+import { getWebSocketUrl } from '../utils/websocketUrl';
+
 class WebSocketService {
     constructor() {
         this.ws = null;
@@ -5,20 +7,7 @@ class WebSocketService {
     }
 
     connect(workflowId) {
-        const baseUrl = process.env.REACT_APP_API_BASE_URL || 'http://localhost:8000';
-        let wsProtocol = 'ws://';
-
-        if (baseUrl.startsWith('https://')) {
-            wsProtocol = 'wss://';
-        } else if (baseUrl.startsWith('http://')) {
-            wsProtocol = 'ws://';
-        }
-
-        // Remove the protocol part ('http://' or 'https://') from the baseUrl
-        const baseUrlWithoutProtocol = baseUrl.replace(/^https?:\/\//, '');
-
-        const wsUrl = `${wsProtocol}${baseUrlWithoutProtocol}/ws/${workflowId}`;
-
+        const wsUrl = getWebSocketUrl(`/ws/${workflowId}`);
         console.log(`Connecting to WebSocket at ${wsUrl}`);
 
         this.ws = new WebSocket(wsUrl);

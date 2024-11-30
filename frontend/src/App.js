@@ -17,8 +17,7 @@ import { executeWorkflow } from './services/api';
 import { WorkflowProvider } from './context/WorkflowContext';
 import { wsService } from './services/websocket';
 import WorkflowToolbar from './components/WorkflowToolbar';
-
-// Import your existing components
+import { getWebSocketUrl } from './utils/websocketUrl';
 import GenerateTextBlock from './components/GenerateTextBlock';
 import DisplayTextBlock from './components/DisplayTextBlock';
 
@@ -111,7 +110,10 @@ const handleExecuteWorkflow = async () => {
 
 
   const pollTaskStatus = async (taskId) => {
-    const ws = new WebSocket(`ws://localhost:8000/ws/${taskId}`);
+    const wsUrl = getWebSocketUrl(`/ws/${taskId}`);
+    console.log(`Connecting to WebSocket at ${wsUrl}`);
+
+    const ws = new WebSocket(wsUrl);
     
     ws.onopen = () => {
       console.log('WebSocket connected');
