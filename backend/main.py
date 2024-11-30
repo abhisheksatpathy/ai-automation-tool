@@ -114,3 +114,7 @@ async def get_workflow(workflow_id: int, db: Session = Depends(get_db)):
     if not workflow:
         raise HTTPException(status_code=404, detail="Workflow not found")
     return workflow
+
+@app.get("/api/health")
+def read_health():
+    return {"status": "healthy"}
