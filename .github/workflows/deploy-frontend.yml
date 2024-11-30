@@ -20,17 +20,19 @@ jobs:
           node-version: '16'  
 
       - name: Install Dependencies
+        working-directory: ./frontend
         run: npm install
 
       - name: Set Environment Variables
+        working-directory: ./frontend
         run: echo 'REACT_APP_API_BASE_URL=https://ai-automation-celery-bbg0crghfff9e0e7.centralindia-01.azurewebsites.net' >> $GITHUB_ENV
 
       - name: Build Frontend
+        working-directory: ./frontend
         run: npm run build
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./build
-          
+          publish_dir: ./frontend/build
