@@ -1,20 +1,18 @@
 from celery_app import celery_app
-import openai
+from openai import OpenAI
 import os
 from dotenv import load_dotenv
 
 load_dotenv()
-openai.api_key = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))
 
 @celery_app.task(name='tasks.generate_text')
 def generate_text(accumulated_results, node_id, prompt=''):
     print(f"Generate text task started with prompt: {prompt}")
     try:
-        response = openai.ChatCompletion.create(
-            model="gpt-3.5-turbo",
-            messages=[{"role": "user", "content": prompt}]
-        )
-        text = response['choices'][0]['message']['content']
+        response = client.chat.completions.create(model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": prompt}])
+        text = response.choices[0].message.content
         accumulated_results[node_id] = {'text': text}
         print(f"Generate text task completed with result: {text}")
         return accumulated_results
