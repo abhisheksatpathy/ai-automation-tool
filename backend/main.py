@@ -1,7 +1,4 @@
 # backend/main.py
-import openai
-print(f"Web Server - OpenAI version: {openai.__version__}")
-
 from fastapi import FastAPI, WebSocket, HTTPException, Depends, WebSocketDisconnect
 from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Dict, Any, Optional
@@ -18,7 +15,7 @@ app = FastAPI()
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "https://abhisheksatpathy.github.io/ai-automation-tool"],
+    allow_origins=["http://localhost:3000", "https://abhisheksatpathy.github.io"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

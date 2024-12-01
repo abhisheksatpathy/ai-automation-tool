@@ -1,7 +1,4 @@
 # backend/celery_app.py
-import openai
-print(f"Celery Worker - OpenAI version: {openai.__version__}")
-
 import os
 from celery import Celery
 
