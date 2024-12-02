@@ -6,6 +6,10 @@ on:
   push:
     branches: [ main ]  
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -41,7 +45,7 @@ jobs:
         alembic upgrade head
 
     - name: Log in to Azure
-      uses: azure/login@v1
+      uses: azure/login@v1.4.0
       with:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
