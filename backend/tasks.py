@@ -2,7 +2,9 @@ from celery_app import celery_app
 from openai import OpenAI
 import os
 
-client = OpenAI(api_key=os.getenv['OPENAI_API_KEY'])
+client = OpenAI(
+    api_key=os.environ.get('OPENAI_API_KEY'),
+)
 
 @celery_app.task(name='tasks.generate_text')
 def generate_text(accumulated_results, node_id, prompt=''):
