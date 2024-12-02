@@ -25,7 +25,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         pip install alembic
-
+    
     - name: Verify DATABASE_URL
       working-directory: ./backend
       run: |
@@ -39,6 +39,32 @@ jobs:
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
       run: |
         alembic upgrade head
+
+    - name: Build and Push Docker Image
+      run: |
+        docker buildx build \
+          --platform linux/amd64 \
+          -t aiautomationprojectacr.azurecr.io/celery-worker:${{ github.sha }} \
+          -f Dockerfile-celery/Dockerfile \
+          --push .
+
+    - name: Deploy to ACI
+      run: |
+        az container create \
+          --resource-group ai-automation-tool-rg \
+          --name celery-worker \
+          --image aiautomationprojectacr.azurecr.io/celery-worker:${{ github.sha }} \
+          --cpu 1 \
+          --memory 1 \
+          --os-type Linux \
+          --registry-login-server aiautomationprojectacr.azurecr.io \
+          --registry-username $(az acr credential show --name aiautomationprojectacr --query "username" --output tsv) \
+          --registry-password $(az acr credential show --name aiautomationprojectacr --query "passwords[0].value" --output tsv) \
+          --environment-variables \
+              OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+              REDIS_URL=${{ secrets.REDIS_URL }} \
+          --restart-policy OnFailure
+
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
