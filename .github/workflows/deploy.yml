@@ -46,6 +46,7 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     - name: Log in to ACR
       run: az acr login --name aiautomationprojectacr
@@ -71,8 +72,8 @@ jobs:
           --memory 1 \
           --os-type Linux \
           --registry-login-server aiautomationprojectacr.azurecr.io \
-          --registry-username $(az acr credential show --name aiautomationprojectacr --query "username" --output tsv) \
-          --registry-password $(az acr credential show --name aiautomationprojectacr --query "passwords[0].value" --output tsv) \
+          --registry-username ${{ secrets.ACR_USERNAME }} \
+          --registry-password ${{ secrets.ACR_PASSWORD }} \
           --environment-variables \
               OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
               REDIS_URL=${{ secrets.REDIS_URL }} \
