@@ -2,7 +2,11 @@
 import os
 from celery import Celery
 
+import logging
+logging.basicConfig(level=logging.DEBUG)
+
 REDIS_URL = os.getenv('REDIS_URL')
+print(f"REDIS_URL: {REDIS_URL}")
 
 # Initialize Celery
 celery_app = Celery(
@@ -23,9 +27,4 @@ celery_app.conf.update(
     worker_prefetch_multiplier=1,
     task_acks_late=True,
     task_reject_on_worker_lost=True,
-    # Remove task_routes to use the default queue
-    # task_routes={
-    #     'tasks.generate_text': {'queue': 'default'},
-    #     'tasks.display_text': {'queue': 'default'},
-    # }
 )

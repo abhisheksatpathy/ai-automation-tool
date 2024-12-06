@@ -1,57 +1,34 @@
-.App {
-  text-align: center;
+/* Set html, body, and root to full height */
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f2f5; /* Light background for the app */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
+/* Container taking full screen */
 .app-container {
   display: flex;
   width: 100vw;
   height: 100vh;
+  overflow: hidden; /* Prevent scroll, ReactFlow handles panning */
 }
 
+/* Sidebar styling */
 .sidebar {
   width: 250px;
-  background-color: #f8f9fa;
+  background-color: #ffffff;
   border-right: 1px solid #dee2e6;
   padding: 20px;
   display: flex;
   flex-direction: column;
+  box-sizing: border-box;
+  overflow-y: auto;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.05);
 }
 
+/* Sidebar header */
 .sidebar-header {
   margin-bottom: 20px;
 }
@@ -59,38 +36,63 @@
 .sidebar-header h3 {
   margin: 0;
   color: #333;
+  font-size: 18px;
+  font-weight: 600;
 }
 
+/* Blocks container */
 .blocks-container {
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
 
+/* Individual block items */
 .block-item {
   padding: 15px;
-  background-color: white;
+  background-color: #ffffff;
   border: 1px solid #dee2e6;
   border-radius: 8px;
-  cursor: move;
+  cursor: grab;
   user-select: none;
   transition: all 0.2s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  font-size: 14px;
+  color: #333;
 }
 
 .block-item:hover {
-  background-color: #f8f9fa;
+  background-color: #f1f3f5;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-.flow-container {
-  flex-grow: 1;
-  position: relative;
+.block-item:active {
+  cursor: grabbing;
 }
 
-.execute-button {
+/* Flow container with a subtle gradient background for the canvas */
+.flow-container {
+  flex: 1;
+  position: relative;
+  height: 100%;
+  background: linear-gradient(120deg, #f9f9f9 0%, #e7f4fa 100%);
+}
+
+/* MiniMap positioning */
+.react-flow__minimap {
   position: absolute;
   bottom: 20px;
+  right: 20px;
+  width: 150px;
+  height: 100px;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+}
+
+/* Execute button */
+.execute-button {
+  position: absolute;
+  bottom: 140px; 
   right: 20px;
   padding: 10px 20px;
   background-color: #007bff;
@@ -99,10 +101,19 @@
   border-radius: 4px;
   cursor: pointer;
   z-index: 10;
+  font-size: 14px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .execute-button:hover {
   background-color: #0056b3;
+  transform: scale(1.05);
+}
+
+.execute-button:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+  transform: scale(1);
 }
 
 /* Styles for the nodes */
@@ -110,14 +121,9 @@
   padding: 10px;
   border-radius: 8px;
   min-width: 150px;
-}
-
-.react-flow__node-generateText,
-.react-flow__node-generateImage,
-.react-flow__node-displayText,
-.react-flow__node-textToSpeech,
-.react-flow__node-analyzeImage {
-  background: white;
+  font-size: 12px;
+  color: #333;
+  background: #fff;
   border: 1px solid #dee2e6;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
@@ -127,25 +133,35 @@
   width: 8px;
   height: 8px;
   background-color: #007bff;
+  border: none;
+  border-radius: 50%;
 }
 
 .react-flow__handle:hover {
   background-color: #0056b3;
 }
 
+/* Status bar styling */
 .status-bar {
   position: absolute;
   bottom: 20px;
-  right: 20px;
+  left: 20px; 
   display: flex;
   align-items: center;
   gap: 10px;
   z-index: 10;
+  background: rgba(255,255,255,0.9);
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
 .status-message {
-  background: rgba(255, 255, 255, 0.9);
-  padding: 8px 12px;
+  padding: 5px 10px;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: #fff;
+  border: 1px solid #dee2e6;
+  color: #333;
 }

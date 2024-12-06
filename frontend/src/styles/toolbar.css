@@ -1,10 +1,50 @@
 .workflow-toolbar {
-    padding: 10px;
-    background-color: #f8f9fa;
+    padding: 15px 20px;
+    background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
     display: flex;
-    gap: 10px;
+    gap: 15px;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Buttons in toolbar */
+.workflow-toolbar button {
+    padding: 8px 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.workflow-toolbar button:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
+/* Load Workflow dropdown */
+.workflow-toolbar select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    background-color: #fff;
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.workflow-toolbar select:hover {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+.workflow-toolbar select:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    outline: none;
 }
 
 .save-dialog {
@@ -12,27 +52,46 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: white;
-    padding: 20px;
+    background: #ffffff;
+    padding: 25px 30px;
     border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 300px;
 }
 
-.save-dialog input {
-    margin-bottom: 10px;
-    padding: 8px;
-    width: 100%;
-    border: 1px solid #dee2e6;
-    border-radius: 4px;
+.save-dialog input,
+.save-dialog textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.save-dialog input:focus,
+.save-dialog textarea:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0,123,255,0.5);
+    outline: none;
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .save-dialog button {
-    margin-right: 10px;
-    padding: 8px 16px;
+    padding: 10px 20px;
     border: none;
-    border-radius: 4px;
+    border-radius: 6px;
     cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .save-dialog button:first-of-type {
@@ -40,7 +99,17 @@
     color: white;
 }
 
+.save-dialog button:first-of-type:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}
+
 .save-dialog button:last-of-type {
     background-color: #6c757d;
     color: white;
+}
+
+.save-dialog button:last-of-type:hover {
+    background-color: #5a6268;
+    transform: scale(1.05);
 }

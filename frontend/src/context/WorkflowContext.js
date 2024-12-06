@@ -1,12 +1,23 @@
-import React, { createContext, useContext, useState } from 'react';
+// frontend/src/context/WorkflowContext.js
 
+import React, { createContext, useContext } from 'react';
+import { useNodesState, useEdgesState } from 'reactflow';
+
+// Create the context
 const WorkflowContext = createContext();
 
+// WorkflowProvider component
 export function WorkflowProvider({ children }) {
-    const [workflowStatus, setWorkflowStatus] = useState({});
-    const [savedWorkflows, setSavedWorkflows] = useState([]);
-    const [currentWorkflow, setCurrentWorkflow] = useState(null);
+    // Existing state
+    const [workflowStatus, setWorkflowStatus] = React.useState({});
+    const [savedWorkflows, setSavedWorkflows] = React.useState([]);
+    const [currentWorkflow, setCurrentWorkflow] = React.useState(null);
+    
+    // New state for nodes and edges
+    const [nodes, setNodes, onNodesChange] = useNodesState([]);
+    const [edges, setEdges, onEdgesChange] = useEdgesState([]);
 
+    // Context value
     const value = {
         workflowStatus,
         setWorkflowStatus,
@@ -14,6 +25,12 @@ export function WorkflowProvider({ children }) {
         setSavedWorkflows,
         currentWorkflow,
         setCurrentWorkflow,
+        nodes,
+        setNodes,
+        onNodesChange,
+        edges,
+        setEdges,
+        onEdgesChange,
     };
 
     return (
@@ -23,6 +40,7 @@ export function WorkflowProvider({ children }) {
     );
 }
 
+// Custom hook to use the context
 export function useWorkflow() {
     return useContext(WorkflowContext);
 }

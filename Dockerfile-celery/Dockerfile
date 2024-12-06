@@ -15,6 +15,12 @@ RUN apt-get update && apt-get install -y \
     libffi-dev \
     libssl-dev \
     python3-dev \
+    libpq-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    libz-dev \
+    libjpeg-dev \
+    zlib1g-dev \
     && apt-get clean
 
 # Install dependencies
